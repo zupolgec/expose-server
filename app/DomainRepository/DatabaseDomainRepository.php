@@ -128,7 +128,7 @@ class DatabaseDomainRepository implements DomainRepository
     {
         $deferred = new Deferred();
 
-        $this->database->query('UPDATE domains SET error_page = :error_page WHERE id = :id', array_merge($data, [
+        $this->database->query('UPDATE domains SET error_page = :error_page WHERE (id = :id OR domain = :id)', array_merge($data, [
             'id' => $id,
         ]))
             ->then(function (Result $result) use ($deferred, $id) {
