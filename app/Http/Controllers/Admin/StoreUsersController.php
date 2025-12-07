@@ -38,12 +38,12 @@ class StoreUsersController extends AdminController
         }
 
         $insertData = [
-            'name' => $request->get('name'),
-            'auth_token' => $request->get('auth_token') ?: (string) Str::uuid(),
-            'can_specify_subdomains' => (int) $request->get('can_specify_subdomains'),
-            'can_specify_domains' => (int) $request->get('can_specify_domains'),
+            'name' => $request->input('name'),
+            'auth_token' => $request->input('auth_token') ?: (string) Str::uuid(),
+            'can_specify_subdomains' => (int) $request->input('can_specify_subdomains'),
+            'can_specify_domains' => (int) $request->input('can_specify_domains'),
             'can_share_tcp_ports' => 0,
-            'max_connections' => (int) $request->get('max_connections'),
+            'max_connections' => (int) $request->input('max_connections'),
         ];
 
         $this->userRepository

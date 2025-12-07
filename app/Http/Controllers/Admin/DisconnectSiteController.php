@@ -23,9 +23,9 @@ class DisconnectSiteController extends AdminController
     public function handle(Request $request, ConnectionInterface $httpConnection)
     {
         if ($request->has('server_host')) {
-            $connection = $this->connectionManager->findControlConnectionForSubdomainAndServerHost($request->get('id'), $request->get('server_host'));
+            $connection = $this->connectionManager->findControlConnectionForSubdomainAndServerHost($request->input('id'), $request->input('server_host'));
         } else {
-            $connection = $this->connectionManager->findControlConnectionForClientId($request->get('id'));
+            $connection = $this->connectionManager->findControlConnectionForClientId($request->input('id'));
         }
 
         if (! is_null($connection)) {

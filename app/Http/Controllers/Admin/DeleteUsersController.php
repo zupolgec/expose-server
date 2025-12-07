@@ -20,7 +20,7 @@ class DeleteUsersController extends AdminController
 
     public function handle(Request $request, ConnectionInterface $httpConnection)
     {
-        $this->userRepository->deleteUser($request->get('id'))
+        $this->userRepository->deleteUser($request->input('id'))
             ->then(function () use ($httpConnection) {
                 $httpConnection->send(respond_json(['deleted' => true], 200));
                 $httpConnection->close();

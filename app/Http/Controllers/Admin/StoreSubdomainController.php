@@ -45,7 +45,7 @@ class StoreSubdomainController extends AdminController
         }
 
         $this->userRepository
-            ->getUserByToken($request->get('auth_token', ''))
+            ->getUserByToken($request->input('auth_token', ''))
             ->then(function ($user) use ($httpConnection, $request) {
                 if (is_null($user)) {
                     $httpConnection->send(respond_json(['error' => 'The user does not exist'], 404));
@@ -61,7 +61,7 @@ class StoreSubdomainController extends AdminController
                     return;
                 }
 
-                if (in_array($request->get('subdomain'), config('expose-server.reserved_subdomains', []))) {
+                if (in_array($request->input('subdomain'), config('expose-server.reserved_subdomains', []))) {
                     $httpConnection->send(respond_json(['error' => 'The subdomain is already taken.'], 422));
                     $httpConnection->close();
 
@@ -70,8 +70,8 @@ class StoreSubdomainController extends AdminController
 
                 $insertData = [
                     'user_id' => $user['id'],
-                    'subdomain' => $request->get('subdomain'),
-                    'domain' => $request->get('domain', $this->configuration->hostname()),
+                    'subdomain' => $request->input('subdomain'),
+                    'domain' => $request->input('domain', $this->configuration->hostname()),
                 ];
 
                 $this->subdomainRepository

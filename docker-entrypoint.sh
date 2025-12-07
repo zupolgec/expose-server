@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sed -i "s|username|${username}|g" ${exposeConfigPath} && sed -i "s|password|${password}|g" ${exposeConfigPath}
+sed -i "s|'username' => 'secret'|'${username}' => '${password}'|g" ${exposeConfigPath}
 
 if [[ $# -eq 0 ]]; then
     exec /src/expose-server serve ${domain} --port ${port} --validateAuthTokens

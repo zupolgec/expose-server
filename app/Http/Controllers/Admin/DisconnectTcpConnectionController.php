@@ -23,7 +23,7 @@ class DisconnectTcpConnectionController extends AdminController
 
     public function handle(Request $request, ConnectionInterface $httpConnection)
     {
-        $connection = $this->connectionManager->findControlConnectionForClientId($request->get('id'));
+        $connection = $this->connectionManager->findControlConnectionForClientId($request->input('id'));
 
         if (! is_null($connection)) {
             $connection->close();

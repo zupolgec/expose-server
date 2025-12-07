@@ -40,7 +40,7 @@ class StoreDomainController extends AdminController
         }
 
         $this->userRepository
-            ->getUserByToken($request->get('auth_token', ''))
+            ->getUserByToken($request->input('auth_token', ''))
             ->then(function ($user) use ($httpConnection, $request) {
                 if (is_null($user)) {
                     $httpConnection->send(respond_json(['error' => 'The user does not exist'], 404));
@@ -58,7 +58,7 @@ class StoreDomainController extends AdminController
 
                 $insertData = [
                     'user_id' => $user['id'],
-                    'domain' => $request->get('domain'),
+                    'domain' => $request->input('domain'),
                 ];
 
                 $this->domainRepository

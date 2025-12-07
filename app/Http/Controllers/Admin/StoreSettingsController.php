@@ -19,17 +19,17 @@ class StoreSettingsController extends AdminController
 
     public function handle(Request $request, ConnectionInterface $httpConnection)
     {
-        config()->set('expose-server.validate_auth_tokens', (bool) $request->get('validate_auth_tokens'));
+        config()->set('expose-server.validate_auth_tokens', (bool) $request->input('validate_auth_tokens'));
 
-        $messages = $request->get('messages');
+        $messages = $request->input('messages');
 
         config()->set('expose-server.messages.invalid_auth_token', Arr::get($messages, 'invalid_auth_token'));
 
         config()->set('expose-server.messages.subdomain_taken', Arr::get($messages, 'subdomain_taken'));
 
-        config()->set('expose-server.maximum_connection_length', $request->get('maximum_connection_length'));
+        config()->set('expose-server.maximum_connection_length', $request->input('maximum_connection_length'));
 
-        config()->set('expose-server.connection_cooldown_period', $request->get('connection_cooldown_period'));
+        config()->set('expose-server.connection_cooldown_period', $request->input('connection_cooldown_period'));
 
         config()->set('expose-server.messages.message_of_the_day', Arr::get($messages, 'message_of_the_day'));
 

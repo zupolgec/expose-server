@@ -25,7 +25,7 @@ class GetUserDetailsController extends AdminController
 
     public function handle(Request $request, ConnectionInterface $httpConnection)
     {
-        $id = $request->get('id');
+        $id = $request->input('id');
 
         if (! is_numeric($id)) {
             $promise = $this->userRepository->getUserByToken($id);

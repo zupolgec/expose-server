@@ -25,7 +25,7 @@ class GetSiteDetailsController extends AdminController
 
     public function handle(Request $request, ConnectionInterface $httpConnection)
     {
-        $domain = $request->get('site');
+        $domain = $request->input('site');
 
         $connectedSite = collect($this->connectionManager->getConnections())
             ->filter(function ($connection) {

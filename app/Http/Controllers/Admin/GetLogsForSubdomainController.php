@@ -24,7 +24,7 @@ class GetLogsForSubdomainController extends AdminController
 
     public function handle(Request $request, ConnectionInterface $httpConnection)
     {
-        $subdomain = $request->get('subdomain');
+        $subdomain = $request->input('subdomain');
         $this->logger->getLogsBySubdomain($subdomain)
             ->then(function ($logs) use ($httpConnection) {
                 $httpConnection->send(

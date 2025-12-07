@@ -23,7 +23,7 @@ class GetStatisticsController extends AdminController
         $from = today()->subWeek()->toDateString();
         $until = today()->toDateString();
 
-        $this->statisticsRepository->getStatistics($request->get('from', $from), $request->get('until', $until))
+        $this->statisticsRepository->getStatistics($request->input('from', $from), $request->input('until', $until))
             ->then(function ($statistics) use ($httpConnection) {
                 $httpConnection->send(
                     respond_json([

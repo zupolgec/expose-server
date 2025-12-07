@@ -25,7 +25,7 @@ class DeleteSubdomainController extends AdminController
 
     public function handle(Request $request, ConnectionInterface $httpConnection)
     {
-        $this->userRepository->getUserByToken($request->get('auth_token', ''))
+        $this->userRepository->getUserByToken($request->input('auth_token', ''))
             ->then(function ($user) use ($request, $httpConnection) {
                 if (is_null($user)) {
                     $httpConnection->send(respond_json(['error' => 'The user does not exist'], 404));
@@ -34,7 +34,7 @@ class DeleteSubdomainController extends AdminController
                     return;
                 }
 
-                $this->subdomainRepository->deleteSubdomainForUserId($user['id'], $request->get('subdomain'))
+                $this->subdomainRepository->deleteSubdomainForUserId($user['id'], $request->input('subdomain'))
                     ->then(function ($deleted) use ($httpConnection) {
                         $httpConnection->send(respond_json(['deleted' => $deleted], 200));
                         $httpConnection->close();
