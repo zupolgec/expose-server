@@ -70,7 +70,8 @@
                                     @{ site.host }
                                 </td>
                                 <td class="px-4 py-3 font-mono text-gray-800 dark:text-gray-300">
-                                    @{ site.subdomain }.{{ $configuration->hostname()}}:{{ $configuration->port() }}
+                                    <span v-if="site.server_host">@{ site.subdomain }.@{ site.server_host }</span>
+                                    <span v-else>@{ site.subdomain }.{{ $configuration->hostname()}}:{{ $configuration->port() }}</span>
                                 </td>
                                 <td class="px-4 py-3 text-gray-800 dark:text-gray-300">
                                     <span v-if="showToken" class="font-mono">
@@ -84,7 +85,7 @@
                                     @{ site.shared_at }
                                 </td>
                                 <td class="px-4 py-3 text-right text-gray-800 dark:text-gray-300">
-                                    <button @click.prevent="visit('{!! $scheme !!}://'+site.subdomain+'.{{ $configuration->hostname()}}:{{ $configuration->port() }}')" type="button"
+                                    <button @click.prevent="visit('{!! $scheme !!}://'+site.subdomain+'.'+(site.server_host || '{{ $configuration->hostname()}}:{{ $configuration->port() }}'))" type="button"
                                             title="Visit site"
                                             class="relative items-center font-medium justify-center gap-2 whitespace-nowrap group disabled:opacity-75 dark:disabled:opacity-75 disabled:cursor-default disabled:pointer-events-none h-10 text-sm rounded-lg w-10 inline-flex bg-transparent dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/15 text-gray-400 hover:text-gray-800 dark:text-white dark:hover:text-white">
                                         @include('icons.micro-globe')
