@@ -39,7 +39,7 @@ class StoreUsersController extends AdminController
 
         $insertData = [
             'name' => $request->get('name'),
-            'auth_token' => $request->get('auth_token', (string) Str::uuid()),
+            'auth_token' => $request->get('auth_token') ?: (string) Str::uuid(),
             'can_specify_subdomains' => (int) $request->get('can_specify_subdomains'),
             'can_specify_domains' => (int) $request->get('can_specify_domains'),
             'can_share_tcp_ports' => 0,
